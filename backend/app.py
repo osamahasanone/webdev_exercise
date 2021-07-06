@@ -23,7 +23,7 @@ app = create_app()
 CORS(app)
 
 @app.route("/users", methods=["POST"])
-def delete_all_users():
+def create_users_batch():
     with app.app_context():
         for x in range(10):
             db.session.add(User(name=fake.name()))
@@ -32,7 +32,7 @@ def delete_all_users():
 
 
 @app.route("/users", methods=["DELETE"])
-def create_users_batch():
+def delete_all_users():
     with app.app_context():
         User.query.delete()
         db.session.commit()
