@@ -86,6 +86,15 @@ def user_add_skill(id):
     return "Skill added to user", 201
 
 
+@app.route("/userswithskill", methods=["GET"])
+def filter_users():
+    with app.app_context():
+        skill_id = request.get_json().get('skill_id')
+        skill = Skill.query.get(skill_id)
+        result = skill.users
+        return UsersResponse(items=result).json()
+
+
 ###########################################################################################
 if __name__ == "__main__":
     app.run()
