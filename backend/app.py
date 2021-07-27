@@ -1,6 +1,7 @@
 from faker import Faker
 from flask import Flask
 from flask_cors import CORS
+import random
 
 from models import db, User, UsersResponse, Skill, SkillsResponse
 
@@ -28,7 +29,7 @@ CORS(app)
 @app.route("/skills", methods=["POST"])
 def create_skills_batch():
     skill_names = ['Python', 'Flask', 'Bottle', 'FastAPI',
-                   'SQL', 'HTML5', 'CSS3', 'Javascript', 'React', 'Angular']
+                   'SQL', 'HTML5', 'CSS3', 'Javascript', 'React', 'Angular', 'Vue.Js']
     with app.app_context():
         for skill_name in skill_names:
             db.session.add(Skill(name=skill_name))
@@ -48,7 +49,10 @@ def skills():
 def create_users_batch():
     with app.app_context():
         for x in range(10):
-            db.session.add(User(name=fake.name()))
+            user = User(name=fake.name())
+            skill = Skill.query.get(random.randint(1, 11))
+            user.skills.append(skill)
+            db.session.add(user)
         db.session.commit()
     return "Users created", 201
 

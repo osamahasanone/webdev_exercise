@@ -47,10 +47,11 @@ class User(db.Model):
 class UserSchema(BaseModel):
     id: int
     name: str
-    # skills: List[Skill]
+    skills: List[SkillSchema]
 
     class Config:
         orm_mode = True
+        arbitrary_types_allowed = True
 
 
 class UsersResponse(BaseModel):
