@@ -26,18 +26,18 @@ class SkillsResponse(BaseModel):
     items: List[SkillSchema]
 
 
-skills = db.Table('skills',
-                  db.Column('skill_id', db.Integer, db.ForeignKey(
-                      'skill.id'), primary_key=True),
-                  db.Column('user_id', db.Integer, db.ForeignKey(
-                      'user.id'), primary_key=True)
-                  )
+users_skills = db.Table('users_skills',
+                        db.Column('skill_id', db.Integer, db.ForeignKey(
+                            'skill.id'), primary_key=True),
+                        db.Column('user_id', db.Integer, db.ForeignKey(
+                            'user.id'), primary_key=True)
+                        )
 
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), unique=True, nullable=False)
-    skills = db.relationship('Skill', secondary=skills, lazy='subquery',
+    skills = db.relationship('Skill', secondary=users_skills, lazy='subquery',
                              backref=db.backref('users', lazy=True))
 
     def __repr__(self):
