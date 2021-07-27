@@ -1,30 +1,7 @@
 from typing import List
-
-from flask_sqlalchemy import SQLAlchemy
 from pydantic import BaseModel
-
-db = SQLAlchemy()
-
-
-class Skill(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80), unique=True, nullable=False)
-
-    def __repr__(self):
-        return "<Skill %r>" % self.name
-
-
-class SkillSchema(BaseModel):
-    id: int
-    name: str
-
-    class Config:
-        orm_mode = True
-
-
-class SkillsResponse(BaseModel):
-    items: List[SkillSchema]
-
+from models import db
+from .skill import SkillSchema
 
 users_skills = db.Table('users_skills',
                         db.Column('skill_id', db.Integer, db.ForeignKey(
