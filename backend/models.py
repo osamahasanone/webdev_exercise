@@ -47,6 +47,7 @@ class User(db.Model):
 class UserSchema(BaseModel):
     id: int
     name: str
+    # skills: List[Skill]
 
     class Config:
         orm_mode = True

@@ -2,7 +2,7 @@ from faker import Faker
 from flask import Flask
 from flask_cors import CORS
 
-from models import db, User, UsersResponse
+from models import db, User, UsersResponse, Skill, SkillsResponse
 
 fake = Faker()
 
@@ -21,6 +21,28 @@ def create_app():
 app = create_app()
 
 CORS(app)
+
+###########################################################################################
+
+
+@app.route("/skills", methods=["POST"])
+def create_skills_batch():
+    skill_names = ['Python', 'Flask', 'Bottle', 'FastAPI',
+                   'SQL', 'HTML5', 'CSS3', 'Javascript', 'React', 'Angular']
+    with app.app_context():
+        for skill_name in skill_names:
+            db.session.add(Skill(name=skill_name))
+        db.session.commit()
+    return "Skills created", 201
+
+
+@app.route("/skills", methods=["GET"])
+def skills():
+    with app.app_context():
+        results = Skill.query.all()
+    return SkillsResponse(items=results).json()
+###########################################################################################
+
 
 @app.route("/users", methods=["POST"])
 def create_users_batch():
