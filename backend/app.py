@@ -71,6 +71,14 @@ def users():
         results = User.query.all()
     return UsersResponse(items=results).json()
 
+###########################################################################################
+# @app.route("/users", methods=["GET"])
+# def users():
+#     with app.app_context():
+#         results = User.query.all()
+#     return UsersResponse(items=results).json()
 
+
+###########################################################################################
 if __name__ == "__main__":
     app.run()
