@@ -1,5 +1,6 @@
 from faker import Faker
 from flask import Flask
+from flask import request
 from flask_cors import CORS
 import random
 
@@ -72,11 +73,17 @@ def users():
     return UsersResponse(items=results).json()
 
 ###########################################################################################
-# @app.route("/users", methods=["GET"])
-# def users():
-#     with app.app_context():
-#         results = User.query.all()
-#     return UsersResponse(items=results).json()
+
+
+@app.route("/users/<id>/addskill", methods=["POST"])
+def user_add_skill(id):
+    with app.app_context():
+        user = User.query.get(id)
+        skill_id = request.get_json().get('skill_id')
+        skill = Skill.query.get(skill_id)
+        user.skills.append(skill)
+        db.session.commit()
+    return "Skill added to user", 201
 
 
 ###########################################################################################
