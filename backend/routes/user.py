@@ -35,11 +35,9 @@ def users():
         results = User.query.all()
     return UsersResponse(items=results).json()
 
-###########################################################################################
-
 
 @user_bp.route("/users/<id>/addskill", methods=["POST"])
-def user_add_skill(id):
+def add_skill(id):
     with current_app._get_current_object().app_context():
         user = User.query.get(id)
         skill_id = request.get_json().get('skill_id')
@@ -50,7 +48,7 @@ def user_add_skill(id):
 
 
 @user_bp.route("/userswithskill", methods=["GET"])
-def filter_users():
+def have_skill():
     with current_app._get_current_object().app_context():
         skill_id = request.get_json().get('skill_id')
         skill = Skill.query.get(skill_id)
