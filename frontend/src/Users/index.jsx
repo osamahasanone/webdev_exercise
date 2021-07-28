@@ -16,12 +16,12 @@ const UsersTableHeader = () => (
   </div>
 );
 
-const UserRow = ({ id, name }) => (
+const UserRow = ({ user, allSkills }) => (
   <div className="users-table__row">
-    <div>{id}</div>
-    <div>{name}</div>
+    <div>{user.id}</div>
+    <div>{user.name}</div>
     <div>
-      <UserSkill />
+      <UserSkill allSkills={allSkills} user={user} />
     </div>
   </div>
 );
@@ -32,6 +32,11 @@ const fetchUsers = async () => {
   return items;
 };
 
+const fetchSkills = async () => {
+  const response = await fetch("http://127.0.0.1:5000/skills");
+  const { items } = await response.json();
+  return items;
+};
 const UsersActions = ({ children }) => (
   <div className="users-actions">{children}</div>
 );
@@ -42,12 +47,20 @@ export default function Users() {
     fetchUsers().then(setUsers);
   }, []);
   useEffect(loadUsers, [loadUsers]);
+
+  const [skills, setSkills] = useState([]);
+  const loadSkills = useCallback(() => {
+    fetchSkills().then(setSkills);
+  }, []);
+  useEffect(loadSkills, [loadSkills]);
+
   return (
     <div>
       <UsersTable>
         <UsersTableHeader />
+
         {users.map((user) => (
-          <UserRow key={user.id} {...user} />
+          <UserRow allSkills={skills} key={user.id} user={user} />
         ))}
       </UsersTable>
       <UsersActions>

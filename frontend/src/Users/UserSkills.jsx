@@ -9,13 +9,21 @@ class UserSkill extends Component {
   };
 
   async componentDidMount() {
-    const response = await fetch("http://127.0.0.1:5000/skills");
-    const { items } = await response.json();
-    this.setState({ skills: items });
+    console.log(this.props.userSkills);
   }
 
-  handleChange = (value) => {
-    console.log(`selected ${value}`);
+  //   handleChange = (value) => {
+  //     console.log(`user ${this.props.user.id}`);
+  //     console.log(`selected ${value}`);
+  //   };
+
+  handleChange = async (value) => {
+    console.log("value", value);
+    await fetch(`http://127.0.0.1:5000/users/${this.props.user.id}/setskills`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ skills: value }),
+    });
   };
 
   render() {
@@ -24,10 +32,10 @@ class UserSkill extends Component {
         mode="tags"
         style={{ width: "100%" }}
         placeholder="Choose Skills"
-        defaultValue={["Python", "Flask"]}
+        defaultValue={this.props.user.skills.map((skill) => skill.name)}
         onChange={this.handleChange}
       >
-        {this.state.skills.map((skill) => (
+        {this.props.allSkills.map((skill) => (
           <Option key={skill.name}>{skill.name}</Option>
         ))}
       </Select>
