@@ -36,15 +36,17 @@ def users():
     return UsersResponse(items=results).json()
 
 
-@user_bp.route("/users/<id>/addskill", methods=["POST"])
-def add_skill(id):
+@user_bp.route("/users/<id>/setskills", methods=["POST"])
+def set_skill(id):
     with current_app._get_current_object().app_context():
         user = User.query.get(id)
-        skill_id = request.get_json().get('skill_id')
-        skill = Skill.query.get(skill_id)
-        user.skills.append(skill)
+        skills_data = request.get_json().get('skills')
+        skills_strs = skills_data.split(',')
+        skills = [skill for skill in Skill.query.all()
+                  if skill.name in skills_strs]
+        user.skills = skills
         db.session.commit()
-    return "Skill added to user", 201
+    return "Skills set to user", 200
 
 
 @user_bp.route("/userswithskill", methods=["GET"])

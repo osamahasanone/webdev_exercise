@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { AddUsers, AddSkills } from "./AddUsers";
+import UserSkill from "./UserSkills";
 import RemoveUsers from "./RemoveUsers";
 import "./Users.css";
 
@@ -19,7 +20,9 @@ const UserRow = ({ id, name }) => (
   <div className="users-table__row">
     <div>{id}</div>
     <div>{name}</div>
-    <div>Skills</div>
+    <div>
+      <UserSkill />
+    </div>
   </div>
 );
 
