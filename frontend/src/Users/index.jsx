@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import AddUsers from "./AddUsers";
+import { AddUsers, AddSkills } from "./AddUsers";
 import RemoveUsers from "./RemoveUsers";
 import "./Users.css";
 
@@ -11,6 +11,7 @@ const UsersTableHeader = () => (
   <div className="users-table__row">
     <div className="users-table__col-header">Id</div>
     <div className="users-table__col-header">Name</div>
+    <div className="users-table__col-header">Skills</div>
   </div>
 );
 
@@ -18,6 +19,7 @@ const UserRow = ({ id, name }) => (
   <div className="users-table__row">
     <div>{id}</div>
     <div>{name}</div>
+    <div>Skills</div>
   </div>
 );
 
@@ -46,6 +48,7 @@ export default function Users() {
         ))}
       </UsersTable>
       <UsersActions>
+        <AddSkills />
         <AddUsers refetch={loadUsers} />
         <RemoveUsers refetch={loadUsers} />
       </UsersActions>
