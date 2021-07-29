@@ -20,12 +20,12 @@ const UsersTableHeader = () => (
   </div>
 );
 
-const UserRow = ({ user, allSkills }) => (
+const UserRow = ({ user, allSkills, refetch }) => (
   <div className="users-table__row">
     <div>{user.id}</div>
     <div>{user.name}</div>
     <div>
-      <PickSkills allSkills={allSkills} user={user} />
+      <PickSkills allSkills={allSkills} refetch={refetch} user={user} />
     </div>
   </div>
 );
@@ -81,7 +81,12 @@ export default function Users() {
         <UsersTableHeader />
 
         {users.map((user) => (
-          <UserRow allSkills={skills} key={user.id} user={user} />
+          <UserRow
+            allSkills={skills}
+            refetch={loadSkills}
+            key={user.id}
+            user={user}
+          />
         ))}
       </UsersTable>
       <UsersActions>
