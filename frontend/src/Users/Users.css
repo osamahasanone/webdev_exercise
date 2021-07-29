@@ -20,6 +20,11 @@
 .users-table__col-header {
   font-weight: bold;
 }
+
+.users-table-skills {
+  text-transform: lowercase;
+}
+
 .users-actions {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -44,8 +49,4 @@
   margin: 2em 0em;
   display: flex;
   flex-direction: column;
-}
-
-.skill {
-  text-transform: lowercase;
 }

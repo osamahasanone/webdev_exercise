@@ -15,7 +15,7 @@ class PickSkills extends Component {
   render() {
     return (
       <Select
-        className="skill"
+        className="users-table-skills"
         mode="tags"
         style={{ width: "100%" }}
         placeholder="pick skills or type to create.."
