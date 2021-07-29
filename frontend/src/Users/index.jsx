@@ -58,7 +58,7 @@ export default function Users() {
 
   return (
     <div>
-      <SearchUser allSkills={skills} refetch={loadUsers} />
+      <SearchUser allSkills={skills} refetch={loadUsers} setUsers={setUsers} />
       <UsersTable>
         <UsersTableHeader />
 
