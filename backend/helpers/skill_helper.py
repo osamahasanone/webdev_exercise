@@ -20,6 +20,15 @@ def insert_missing(names):
             db.session.add(skill)
 
 
+def db_skill(name):
+    '''fetch matching skill from db
+
+    parameters:
+    name: skill name to find
+    '''
+    return Skill.query.filter_by(name=fix_name(name)).first()
+
+
 def db_skills(names, do_insert=False):
     '''fetch matching skills from db
 

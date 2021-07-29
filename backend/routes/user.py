@@ -45,18 +45,20 @@ def set_skills(id):
         {skills_names:["skill_name_1","skill_name_2","skill_name_3"]}
 
     responses:
-    400: skills_names not in body
-    200: OK
+    400: user id not found in db or skills_names not in body
+    204: updated
     '''
     with current_app._get_current_object().app_context():
         user = User.query.get(id)
+        if not user:
+            return "Bad Request", 400
         skills_names = request.get_json().get('skills_names')
         if not skills_names:
             return "Bad Request", 400
         db_skills = skill_helper.db_skills(skills_names, do_insert=True)
         user.skills = db_skills
         db.session.commit()
-    return "Skills set to user", 200
+    return "Skills set to user", 204
 
 
 @user_bp.route("/userswithskill", methods=["GET"])
@@ -75,9 +77,8 @@ def have_skill():
         skill_name = request.args.get('skill_name')
         if not skill_name:
             return "Bad Request", 400
-        skill = Skill.query.filter_by(
-            name=skill_helper.fix_name(skill_name)).first()
-        if not skill:
+        db_skill = skill_helper.db_skill(skill_name)
+        if not db_skill:
             return "Skill Not Found", 404
-        result = skill.users
+        result = db_skill.users
         return UsersResponse(items=result).json()
