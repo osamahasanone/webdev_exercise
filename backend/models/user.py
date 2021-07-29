@@ -17,8 +17,8 @@ class User(db.Model):
     skills = db.relationship('Skill', secondary=users_skills, lazy='subquery',
                              backref=db.backref('users', lazy=True))
 
-    def __repr__(self):
-        return "<User %r>" % self.name
+    def __str__(self):
+        return self.name
 
 
 class UserSchema(BaseModel):

@@ -6,22 +6,9 @@ from sqlalchemy import exc
 skill_bp = Blueprint('skill_bp', __name__)
 
 
-@skill_bp.route("/skills", methods=["POST"])
-def create_skills_batch():
-    skill_names = ['Python', 'Flask', 'Bottle', 'FastAPI',
-                   'SQL', 'HTML5', 'CSS3', 'Javascript', 'React', 'Angular', 'Vue.Js']
-    with current_app._get_current_object().app_context():
-        for skill_name in skill_names:
-            db.session.add(Skill(name=skill_name))
-        try:
-            db.session.commit()
-        except exc.IntegrityError:
-            return "Dummy skills are already created", 400
-    return "Skills created", 201
-
-
 @skill_bp.route("/skills", methods=["GET"])
-def skills():
+def get_skills():
+    '''get all skills'''
     with current_app._get_current_object().app_context():
         results = Skill.query.all()
     return SkillsResponse(items=results).json()
