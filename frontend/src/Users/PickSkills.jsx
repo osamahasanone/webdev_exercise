@@ -8,13 +8,14 @@ class PickSkills extends Component {
     await fetch(`http://127.0.0.1:5000/users/${this.props.user.id}/setskills`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ skills: value }),
+      body: JSON.stringify({ skills_names: value }),
     }).then(this.props.refetch);
   };
 
   render() {
     return (
       <Select
+        className="skill"
         mode="tags"
         style={{ width: "100%" }}
         placeholder="pick skills or type to create.."
