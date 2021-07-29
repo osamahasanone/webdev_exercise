@@ -6,7 +6,6 @@ const { Option } = Select;
 
 class SearchUsers extends Component {
   onChange = async (value) => {
-    console.log(value);
     await fetch(`http://127.0.0.1:5000/userswithskill?skill_name=${value}`)
       .then((response) => response.json())
       .then((responseData) => this.props.setUsers(responseData.items));

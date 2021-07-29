@@ -14,8 +14,6 @@ def create_users_batch():
     with current_app._get_current_object().app_context():
         for x in range(10):
             user = User(name=fake.name())
-            skill = Skill.query.get(random.randint(1, 11))
-            user.skills.append(skill)
             db.session.add(user)
         db.session.commit()
     return "Users created", 201
@@ -41,9 +39,8 @@ def set_skill(id):
     with current_app._get_current_object().app_context():
         user = User.query.get(id)
         skills_data = request.get_json().get('skills')
-        skills_strs = skills_data.split(',')
         skills = [skill for skill in Skill.query.all()
-                  if skill.name in skills_strs]
+                  if skill.name in skills_data]
         user.skills = skills
         db.session.commit()
     return "Skills set to user", 200
@@ -52,7 +49,7 @@ def set_skill(id):
 @user_bp.route("/userswithskill", methods=["GET"])
 def have_skill():
     with current_app._get_current_object().app_context():
-        skill_id = request.get_json().get('skill_id')
-        skill = Skill.query.get(skill_id)
+        skill_name = request.args.get('skill_name')
+        skill = Skill.query.filter_by(name=skill_name).first()
         result = skill.users
         return UsersResponse(items=result).json()
