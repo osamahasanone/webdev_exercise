@@ -1,6 +1,7 @@
 from flask import Blueprint, current_app
 from models.skill import Skill, SkillsResponse
 from models import db
+from sqlalchemy import exc
 
 skill_bp = Blueprint('skill_bp', __name__)
 
@@ -12,7 +13,10 @@ def create_skills_batch():
     with current_app._get_current_object().app_context():
         for skill_name in skill_names:
             db.session.add(Skill(name=skill_name))
-        db.session.commit()
+        try:
+            db.session.commit()
+        except exc.IntegrityError:
+            return "Dummy skills are already created", 400
     return "Skills created", 201
 
 
