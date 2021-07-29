@@ -1,8 +1,7 @@
 from flask import Flask
 from flask_cors import CORS
 from models import db
-from routes.user import user_bp
-from routes.skill import skill_bp
+from routes import user_bp, skill_bp
 
 
 def create_app():
