@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
-import { AddUsers, AddSkills } from "./AddUsers";
-import UserSkill from "./UserSkills";
+import { AddUsers } from "./AddUsers";
+import { AddSkills } from "./AddSkills";
+import PickSkills from "./PickSkills";
 import SearchUser from "./search";
 import RemoveUsers from "./RemoveUsers";
 import "./Users.css";
@@ -24,7 +25,7 @@ const UserRow = ({ user, allSkills }) => (
     <div>{user.id}</div>
     <div>{user.name}</div>
     <div>
-      <UserSkill allSkills={allSkills} user={user} />
+      <PickSkills allSkills={allSkills} user={user} />
     </div>
   </div>
 );
