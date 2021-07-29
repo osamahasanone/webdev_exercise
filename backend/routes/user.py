@@ -22,6 +22,8 @@ def create_users_batch():
 @user_bp.route("/users", methods=["DELETE"])
 def delete_all_users():
     with current_app._get_current_object().app_context():
+        for user in User.query.all():
+            user.skills = []
         User.query.delete()
         db.session.commit()
     return "Users deleted"
