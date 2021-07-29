@@ -61,7 +61,7 @@ export default function Users() {
 
   return (
     <div>
-      {users.length > 0 && skills.length > 0 && (
+      {skills.length > 0 && (
         <SearchUser
           allSkills={skills}
           refetch={loadUsers}
