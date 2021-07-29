@@ -60,7 +60,13 @@ export default function Users() {
 
   return (
     <div>
-      <SearchUser allSkills={skills} refetch={loadUsers} setUsers={setUsers} />
+      {users.length > 0 && skills.length > 0 && (
+        <SearchUser
+          allSkills={skills}
+          refetch={loadUsers}
+          setUsers={setUsers}
+        />
+      )}
       <Tooltip title="Show all">
         <Button
           type="link"
