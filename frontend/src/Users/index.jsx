@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { AddUsers, AddSkills } from "./AddUsers";
 import UserSkill from "./UserSkills";
+import SearchUser from "./search";
 import RemoveUsers from "./RemoveUsers";
 import "./Users.css";
 
@@ -37,6 +38,7 @@ const fetchSkills = async () => {
   const { items } = await response.json();
   return items;
 };
+
 const UsersActions = ({ children }) => (
   <div className="users-actions">{children}</div>
 );
@@ -56,6 +58,7 @@ export default function Users() {
 
   return (
     <div>
+      <SearchUser allSkills={skills} refetch={loadUsers} />
       <UsersTable>
         <UsersTableHeader />
 
@@ -64,7 +67,7 @@ export default function Users() {
         ))}
       </UsersTable>
       <UsersActions>
-        <AddSkills />
+        <AddSkills refetch={loadSkills} />
         <AddUsers refetch={loadUsers} />
         <RemoveUsers refetch={loadUsers} />
       </UsersActions>

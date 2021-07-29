@@ -4,21 +4,7 @@ import { Select } from "antd";
 const { Option } = Select;
 
 class UserSkill extends Component {
-  state = {
-    skills: [],
-  };
-
-  async componentDidMount() {
-    console.log(this.props.userSkills);
-  }
-
-  //   handleChange = (value) => {
-  //     console.log(`user ${this.props.user.id}`);
-  //     console.log(`selected ${value}`);
-  //   };
-
   handleChange = async (value) => {
-    console.log("value", value);
     await fetch(`http://127.0.0.1:5000/users/${this.props.user.id}/setskills`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },

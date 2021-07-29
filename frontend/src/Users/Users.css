@@ -39,3 +39,10 @@
 .users-actions > button:hover {
   background-color: #042c55;
 }
+
+.search {
+  margin: 2em 0em;
+  display: flex;
+  flex-direction: column;
+  
+}
