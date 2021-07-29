@@ -4,6 +4,8 @@ import UserSkill from "./UserSkills";
 import SearchUser from "./search";
 import RemoveUsers from "./RemoveUsers";
 import "./Users.css";
+import { Button, Tooltip } from "antd";
+import { ReloadOutlined } from "@ant-design/icons";
 
 const UsersTable = ({ children }) => (
   <div className="users-table">{children}</div>
@@ -59,6 +61,15 @@ export default function Users() {
   return (
     <div>
       <SearchUser allSkills={skills} refetch={loadUsers} setUsers={setUsers} />
+      <Tooltip title="Show all">
+        <Button
+          type="link"
+          icon={<ReloadOutlined />}
+          onClick={() => loadUsers()}
+        >
+          Show all
+        </Button>
+      </Tooltip>
       <UsersTable>
         <UsersTableHeader />
 
