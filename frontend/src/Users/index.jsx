@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
-import { AddUsers } from "./AddUsers";
-import { AddSkills } from "./AddSkills";
+import AddUsers from "./AddUsers";
+
 import PickSkills from "./PickSkills";
 import SearchUser from "./search";
 import RemoveUsers from "./RemoveUsers";
@@ -90,7 +90,6 @@ export default function Users() {
         ))}
       </UsersTable>
       <UsersActions>
-        <AddSkills refetch={loadSkills} />
         <AddUsers refetch={loadUsers} />
         <RemoveUsers refetch={loadUsers} />
       </UsersActions>

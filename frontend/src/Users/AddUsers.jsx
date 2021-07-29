@@ -6,7 +6,7 @@ const addUsersBulk = async () => {
   });
 };
 
-export function AddUsers({ refetch }) {
+export default function AddUsers({ refetch }) {
   const onClick = useCallback(() => {
     addUsersBulk().then(refetch);
   }, [refetch]);

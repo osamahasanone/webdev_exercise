@@ -17,7 +17,7 @@ class PickSkills extends Component {
       <Select
         mode="tags"
         style={{ width: "100%" }}
-        placeholder="Create or pick skills"
+        placeholder="pick skills or type to create.."
         defaultValue={this.props.user.skills.map((skill) => skill.name)}
         onChange={this.handleChange}
       >
