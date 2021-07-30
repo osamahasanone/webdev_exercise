@@ -1,5 +1,3 @@
-# WorkGenius Web Developer test exercise
-
 ## Exercise
 
 > _In a nutshell a simple many-to-many relationship modeling with some primitive CRUD and UI_
@@ -56,9 +54,3 @@ npm install
 # Run
 npm start
 ```
-
-## Share results
-
-A zip archive of the project with accomplished exercise can be sent via email to ivan@workgenius.com
-
-Good luck ;) 
